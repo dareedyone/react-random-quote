@@ -1,0 +1,50 @@
+class App extends React.Component {
+constructor (props) {
+  super(props);
+  
+  this.state = {
+    quotes: [
+      {Quote: 'A writer is someone for whom writing is more difficult than it is for other people.', author: 'Thomas Mann'},
+      {Quote: 'Quiet people have the loudest minds.', author: 'Steven King'},
+      {Quote: 'Which is the true nightmare, the horrific dream that you have in your sleep or the dissatisfied reality that awaits you when you awake?', author: 'Justin Alcala'},
+      {Quote: 'Stay Hungry. Stay Foolish.', author: 'Steve Jobs'},
+      {Quote: 'What I like in a good author is not what he says, but what he whispers', author: 'Logan Pearshall'}
+      
+    ],
+    randomQuote: {Quote: "loading", author: "loading-author"}
+  }
+}
+  
+  getRandomQuotes =(event) => {
+  
+    let randomNum = Math.round(Math.random() * 4);
+    this.setState({
+      randomQuote: this.state.quotes[randomNum]
+    });
+    
+  }
+  doTest =() => {
+    console.log("yeaaa");
+  }
+  componentDidMount() {
+    this.getRandomQuotes();
+    console.log("componentDidMounthere");
+  }
+  
+  render () {
+    // console.log('test');
+    return (
+    <div className="bg-light contain rounded w-50 p-1 px-3" > 
+     <h2 id="text" className="text-center">{this.state.randomQuote.Quote}</h2>
+        <h6 id="author" className="text-right my-4">-{this.state.randomQuote.author}</h6>
+        <div className="d-flex justify-content-between">
+          <a target="_blank" className="btn btn-secondary" id="tweet-quote" href={`https://twitter.com/intent/tweet?text=${this.state.randomQuote.Quote} By ${this.state.randomQuote.author}`}>tweet</a>
+          <button id="new-quote" onClick={this.getRandomQuotes} className="btn btn-secondary" >New Quote</button>
+        </div>
+        
+    </div>
+    );
+  }
+}
+
+ReactDOM.render(<App />, document.getElementById("quote-box"));
